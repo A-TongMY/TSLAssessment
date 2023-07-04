@@ -13,5 +13,10 @@ namespace TSLAssessment.Services
         {
             Console.WriteLine(message);
         }
+
+        public void LogError(string errorType, string message)
+        {
+            Console.WriteLine($"{errorType} : {message}");
+        }
     }
 }

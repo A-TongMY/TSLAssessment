@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +23,38 @@ namespace TSLAssessment.Services
         public void Run(string[] args)
         {
             _logService.LogMessage("Injected in Main run, logging.");
+
+            //tuples
+
+            try
+            {
+                var tuple = (Name: "abc", Gender: "M", Age: 20);
+                Console.WriteLine(tuple.Name);
+                Console.WriteLine(tuple.Gender);
+                Console.WriteLine(tuple.Age);
+            }
+
+            catch (FormatException e)
+            {
+                _logService.LogError(e.GetType().ToString(), e.Message);
+            }
+            catch (OverflowException e)
+            {
+                _logService.LogError(e.GetType().ToString(), e.Message);
+            }
+            catch (ArgumentNullException e)
+            {
+                _logService.LogError(e.GetType().ToString(), e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            app.Run(async context => await context.Response.WriteAsync("Middware write."));
         }
     }
 }

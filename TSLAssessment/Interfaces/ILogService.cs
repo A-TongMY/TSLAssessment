@@ -9,5 +9,6 @@ namespace TSLAssessment.Interfaces
     public interface ILogService
     {
         public void LogMessage(string message);
+        public void LogError(string errorType, string message);
     }
 }
